@@ -33,6 +33,8 @@ public class PannelJeu extends JPanel{
 					System.out.println("writing stoped !");
 					if(currentTrajet.isvalid()){
 						System.out.println("And Traject is valid ! :O");
+						Launcher.listeTrajet.add(currentTrajet);
+						Launcher.listeTimer.add(Launcher.display.pannelinf.getChrono());
 						currentTrajet.PutOnMap();
 						currentTrajet.setDone();
 						repaint();
@@ -53,7 +55,10 @@ public class PannelJeu extends JPanel{
 					currentTrajet.add(lastposition);
 					System.out.println("Writting !");
 				}
-				else writing=false;
+				else {
+					writing=false;
+			//		clearTemp();
+				}
 			}
 			
 			@Override
@@ -100,18 +105,24 @@ public class PannelJeu extends JPanel{
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				if(customising && whichObject>=7){
+					
 					customising=false;
 					whichObject=1;
 				}
 				if(writing==true){
 					if(e.getPoint().x > Launcher.map.width*Launcher.WidthCase && e.getPoint().y > Launcher.map.heigth*Launcher.HeigthCase){
 						writing = false;
+						//clearTemp();
 					}
 					else{
 						Point mousePosition = new Point(e.getPoint().x/Launcher.WidthCase, e.getPoint().y/Launcher.HeigthCase);
 						if(mousePosition.isDifferent(lastposition)){
 							if(!currentTrajet.addNears(mousePosition)){
+						//		clearTemp();
 								writing=false;
+							}
+							else{
+						//		paint_temp(getGraphics());
 							}
 						}
 					}
@@ -119,6 +130,9 @@ public class PannelJeu extends JPanel{
 				
 			}
 		});
+		
+		
+		
 	}
 	
 	public void ChangeSize(int x){
@@ -128,6 +142,7 @@ public class PannelJeu extends JPanel{
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+		
 		setOpaque(true);
 		for(int i=0;i<Launcher.map.width;i++){
 			for(int j=0;j<Launcher.map.heigth;j++){
@@ -135,19 +150,20 @@ public class PannelJeu extends JPanel{
 				Objet obj=Launcher.map.get(i,j);
 				if(obj.isLink()){
 					g.setColor(new Color(0,0,0));
-					System.out.println("I print a Link");
+					//System.out.println("I print a Link");
 					g.fillRect((i*Launcher.WidthCase),(j*Launcher.HeigthCase),Launcher.WidthCase,Launcher.WidthCase);
 				}
 				else if(obj.isMaison() && !obj.isShadow()){
 					g.setColor(new Color(255,0,0));
-					System.out.println("I print a house");
+					///System.out.println("I print a house");
 					g.fillOval((i*Launcher.WidthCase),(j*Launcher.HeigthCase),Launcher.WidthCase*Map.MaisonSize,Launcher.WidthCase*Map.MaisonSize);
 				}
 				else if(obj.isService()&& !obj.isShadow()){
 					g.setColor(new Color(0,0,255));
-					System.out.println("I print a service");
+					//System.out.println("I print a service");
 					g.fillOval((i*Launcher.WidthCase),(j*Launcher.HeigthCase),Launcher.WidthCase*Map.ServiceSize,Launcher.WidthCase*Map.ServiceSize);;
 				}
+				
 				
 
 				/* AFFICHAGE GRILLE

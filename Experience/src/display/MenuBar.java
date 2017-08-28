@@ -11,12 +11,11 @@ import engine.Launcher;
 @SuppressWarnings("serial")
 public class MenuBar extends JMenuBar{
 	JMenuItem reset;
-	JMenuItem close,open,save;
 
 	public MenuBar(){
 		super();
 		//Build the first menu.
-		reset = new JMenuItem("Recommencer");
+		reset = new JMenuItem("Une autre !");
 		//reset.setMnemonic(KeyEvent.VK_A);
 		add(reset);
 
@@ -24,27 +23,8 @@ public class MenuBar extends JMenuBar{
 		reset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Launcher.display.setVisible(false);
-				Launcher.display.setEnabled(false);
-				Launcher.start(2);
+				Launcher.mainRedif(null);
 			}
 		});
-		/*
-		//a submenu
-		menu.addSeparator();
-		submenu = new JMenu("A submenu");
-		submenu.setMnemonic(KeyEvent.VK_S);
-
-		menuItem = new JMenuItem("An item in the submenu");
-		menuItem.setAccelerator(KeyStroke.getKeyStroke(
-		        KeyEvent.VK_2, ActionEvent.ALT_MASK));
-		submenu.add(menuItem);
-
-		menuItem = new JMenuItem("Another item");
-		submenu.add(menuItem);
-		menu.add(submenu);
-
-		add(menu);
-		 */
 	}
 }

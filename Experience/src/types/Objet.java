@@ -12,6 +12,7 @@ public class Objet {
 	 * 5 = SB
 	 * 6 = SC
 	 * 7 = link
+	 * 8 = temp link
 	 */
 	
 	public void setShadow(boolean b){
@@ -38,6 +39,10 @@ public class Objet {
 		id=i;
 	}
 	
+	public boolean isTemp(){
+		return(id==8);
+	}
+	
 	public boolean isMaison(){
 		return(id>0 && id<4);
 	}
@@ -51,6 +56,6 @@ public class Objet {
 	}
 	
 	public boolean isObject(){
-		return (id!=0);
+		return (id>0 && id<8);
 	}
 }

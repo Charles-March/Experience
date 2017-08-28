@@ -1,13 +1,16 @@
 package display;
 
-import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import engine.Launcher;
+import engine.OSValidator;
 
 @SuppressWarnings("serial")
 public class PanneauDisposition extends JPanel{
@@ -21,15 +24,21 @@ public class PanneauDisposition extends JPanel{
 		System.out.println("créé !");
 
 		setSize(dispImageX*2+4,dispImageY*3+4);
-		
-		setLayout(new BorderLayout());
-		
+		if(OSValidator.isWindows()){
 		dis1 = new ImageIcon((System.getProperty("user.dir")+"/Ressources/disposition0.png").replace('/','\\'));
 		dis2 = new ImageIcon((System.getProperty("user.dir")+"/Ressources/disposition1.png").replace('/','\\'));
 		dis3 = new ImageIcon((System.getProperty("user.dir")+"/Ressources/disposition2.png").replace('/','\\'));
 		dis4 = new ImageIcon((System.getProperty("user.dir")+"/Ressources/disposition3.png").replace('/','\\'));
 		dis5 = new ImageIcon((System.getProperty("user.dir")+"/Ressources/disposition4.png").replace('/','\\'));
-		
+		}
+		else{
+			dis1 = new ImageIcon((System.getProperty("user.dir")+"/Ressources/disposition0.png").replace('\\','/'));
+			dis2 = new ImageIcon((System.getProperty("user.dir")+"/Ressources/disposition1.png").replace('\\','/'));
+			dis3 = new ImageIcon((System.getProperty("user.dir")+"/Ressources/disposition2.png").replace('\\','/'));
+			dis4 = new ImageIcon((System.getProperty("user.dir")+"/Ressources/disposition3.png").replace('\\','/'));
+			dis5 = new ImageIcon((System.getProperty("user.dir")+"/Ressources/disposition4.png").replace('\\','/'));
+	
+		}
 		b1=new JButton(dis1);
 		
 		b1.addMouseListener(new MouseListener() {
@@ -148,7 +157,7 @@ public class PanneauDisposition extends JPanel{
 			}
 		});
 		
-		bcus=new JButton("Disposition custom");
+		bcus=new JButton("Disposition libre");
 		
 		bcus.addMouseListener(new MouseListener() {
 			@Override
@@ -171,14 +180,41 @@ public class PanneauDisposition extends JPanel{
 				Launcher.display.TurnDispositionOff();
 			}
 		});
+
 		
-		add(bcus,BorderLayout.PAGE_START);
-		//add(b1,BorderLayout.NORTH);
-		add(b2,BorderLayout.WEST);
-		add(b3,BorderLayout.EAST);
-		add(b4,BorderLayout.SOUTH);
-		add(b5,BorderLayout.CENTER);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		add(b2);
+		add(b3);
+		add(b4);
+		add(b5);
+		add(bcus);
+		
+		int heigth = 250,width = 340;
+		bcus.setSize(new Dimension(width,heigth));
+		bcus.setMaximumSize(new Dimension(width,heigth));
+		bcus.setMinimumSize(new Dimension(width,heigth));
+		
+		b2.setSize(new Dimension(width,heigth));
+		b2.setMaximumSize(new Dimension(width,heigth));
+		b2.setMinimumSize(new Dimension(width,heigth));
+		
+		b3.setSize(new Dimension(width,heigth));
+		b3.setMaximumSize(new Dimension(width,heigth));
+		b3.setMinimumSize(new Dimension(width,heigth));
+		
+		b4.setSize(new Dimension(width,heigth));
+		b4.setMaximumSize(new Dimension(width,heigth));
+		b4.setMinimumSize(new Dimension(width,heigth));
+		
+		b5.setSize(new Dimension(width,heigth));
+		b5.setMaximumSize(new Dimension(width,heigth));
+		b5.setMinimumSize(new Dimension(width,heigth));
+
+		
+		
 		setEnabled(true);
 		setVisible(true);
-	}
+		
+			}
 }

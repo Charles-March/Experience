@@ -1,7 +1,6 @@
 package types;
 
 import javax.swing.JOptionPane;
-
 import engine.Launcher;
 
 public class Map {
@@ -9,7 +8,7 @@ public class Map {
 	public int width;
 	public Objet[][] content;
 	public boolean[][] done;
-	
+//	public LinkedList<Point> tempPoint;
 	public static int MaisonSize = 6;
 	public static int ServiceSize = 6;
 	
@@ -34,7 +33,18 @@ public class Map {
 			return false;
 		}
 	System.out.println("Maison mise !");
+	Launcher.SaveStart.add(position);
 	return true;
+	}
+	
+	
+	public void putTempLink(Point position){
+		if(position.x >0 && position.x<width && position.y>0 && position.y<heigth){
+			if(!content[position.x][position.y].isObject()){
+				//content[position.x][position.y].setid(8);
+		//		tempPoint.add(position);
+			}
+		}
 	}
 	
 	public void putLink(Point position){
@@ -65,7 +75,8 @@ public class Map {
 			JOptionPane.showMessageDialog(Launcher.display, "Veuillez choisir un position à l'intérieur de l'écran");
 			return false;
 		}
-		System.out.println("Service mis !");	
+		System.out.println("Service mis !");
+		Launcher.SaveStart.add(position);
 	return true;
 	}
 	
@@ -119,6 +130,7 @@ public class Map {
 	public Map(int SizeX, int SizeY){
 		content = new Objet[SizeX][SizeY];
 		done = new boolean[3][3];
+		//tempPoint = new LinkedList<Point>();
 		heigth = SizeY;
 		width = SizeX;
 		

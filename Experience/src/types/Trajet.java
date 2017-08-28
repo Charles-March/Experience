@@ -6,7 +6,7 @@ import java.util.List;
 import engine.Launcher;
 
 public class Trajet {
-	List<Point> pl;
+	public List<Point> pl;
 	
 	public Trajet(List<Point> lp){
 		pl = lp;
@@ -21,10 +21,14 @@ public class Trajet {
 	}
 	
 	public void PutOnMap(){
+		System.out.println("put on map : "+pl.size());
 		for(int i=1;i<pl.size()-1;i++){
 			Point p = pl.get(i);
 			if(!Launcher.map.get(p).isObject())
-			Launcher.map.putLink(pl.get(i));
+			{
+				//System.out.println("printing on map");
+				Launcher.map.putLink(pl.get(i));
+			}
 		}
 	}
 	
@@ -104,7 +108,8 @@ public class Trajet {
 		Point lastpoint = pl.get(pl.size()-1);
 		if(p.isNear(lastpoint)){
 			if(Launcher.map.isIn(p)){
-				pl.add(p);	
+				pl.add(p);
+				Launcher.map.putTempLink(p);
 			}
 			else return false;
 		}
@@ -118,6 +123,7 @@ public class Trajet {
 						return false;
 					}
 					pl.add(new Point(lastpoint.x,lastpoint.y+i));
+					Launcher.map.putTempLink(new Point(lastpoint.x,lastpoint.y+i));
 				}
 			}
 			if(deltaX!=0){
@@ -126,12 +132,14 @@ public class Trajet {
 						return false;
 					}
 					pl.add(new Point(lastpoint.x+i,p.y));
+					Launcher.map.putTempLink(new Point(lastpoint.x,p.y));
 				}
 			}
 			
 			pl.add(p);
 			
 		}
+	
 	return true;
 	}
 	
